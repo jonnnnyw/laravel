@@ -20,6 +20,11 @@
                 @endif
             @endauth
         </nav>
+        @auth
+            <article>
+                <h2>Hi, {{ Auth::user()->name }}!</h2>
+            </article>
+        @endauth
     @endif
     <main>
         {{ $slot }}

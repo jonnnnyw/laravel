@@ -12,6 +12,7 @@
         <nav>
             @auth
                 <a href="{{ url('/') }}" title="Home">Home</a>
+                <a href="{{ route('logout') }}" title="logout">Log out</a>
             @else
                 <a href="{{ route('login') }}" title="Log in">Log in</a>
                 @if (Route::has('register'))

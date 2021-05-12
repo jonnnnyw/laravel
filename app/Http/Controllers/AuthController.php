@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View as ViewFactory;
+use App\Http\Requests\UserCreateRequest;
 
 class AuthController extends Controller
 {
@@ -18,11 +19,18 @@ class AuthController extends Controller
             ->except('logout');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
     public function login(): View
     {
         return ViewFactory::make('login');
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function authenticate(Request $request): RedirectResponse
     {
         $request->validate([
@@ -41,22 +49,20 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
     public function register(): View
     {
         return ViewFactory::make('register');
     }
 
     /**
-     * @param \Illuminate\Http\Request
+     * @param \App\Http\Requests\UserCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request): RedirectResponse
+    public function create(UserCreateRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-        ]);
-
         $user = User::create(
             $request->only(['name', 'email', 'password'])
         );
@@ -64,5 +70,15 @@ class AuthController extends Controller
         Auth::login($user);
 
         return Redirect::route('home');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return Redirect::route('login');
     }
 }

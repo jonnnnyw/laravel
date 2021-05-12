@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\View as ViewFactory;
 
 class HomeController extends Controller
 {
@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     /**
      * @return \Illuminate\Contracts\View\View
-    */
+     */
     public function __invoke(): View
     {
         return ViewFactory::make('home');

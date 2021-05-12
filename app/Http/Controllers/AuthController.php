@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View as ViewFactory;
-use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserRegisterRequest;
 
 class AuthController extends Controller
 {
@@ -58,10 +58,10 @@ class AuthController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\UserCreateRequest $request
+     * @param \App\Http\Requests\UserRegisterRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(UserCreateRequest $request): RedirectResponse
+    public function create(UserRegisterRequest $request): RedirectResponse
     {
         $user = User::create(
             $request->only(['name', 'email', 'password'])

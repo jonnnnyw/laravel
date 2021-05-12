@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use App\Models\User;
 
 class AuthTest extends TestCase
 {
+    use DatabaseMigrations;
+    
     /**
      * Test user is redirected to login page
      * if user is not authenticated.
@@ -33,7 +36,7 @@ class AuthTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/login');
 
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 
     /**
@@ -49,6 +52,6 @@ class AuthTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/register');
 
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 }
